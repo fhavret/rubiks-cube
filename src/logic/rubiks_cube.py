@@ -1,15 +1,18 @@
-import copy
-import numpy as np
-import random
-from typing import Iterable
+# ruff: noqa: E731
 
-from logic.cube import Cube
-from logic.enums import Color, Face
-from logic.utils import are_all_values_equal
+import copy
+import random
+from typing import Iterator
+
+import numpy as np
+
+from .cube import Cube
+from .enums import Color, Face
+from .utils import are_all_values_equal
 
 
 class RubiksCube:
-    def __init__(self, size: int):
+    def __init__(self, size: int) -> None:
         if size <= 0:
             raise ValueError("'size' must be greater than 0")
         self.size = size
@@ -57,7 +60,7 @@ class RubiksCube:
 
         return is_finished
 
-    def reset(self):
+    def reset(self) -> None:
         for y in range(self.size):  # slice
             for z in range(self.size):  # row
                 for x in range(self.size):  # cube in a row
@@ -87,7 +90,7 @@ class RubiksCube:
 
     def shuffle(
         self, number_of_rotations: int
-    ) -> Iterable[tuple[bool, bool, bool, int]]:
+    ) -> Iterator[tuple[bool, bool, bool, int]]:
         for _ in range(number_of_rotations):
             number = random.randint(0, self.size - 1)
             slice_or_row_or_column = random.randint(0, 2)
@@ -105,7 +108,7 @@ class RubiksCube:
 
             yield rotate_slice, rotate_row, rotate_column, number
 
-    def rotate_slice(self, number: int):
+    def rotate_slice(self, number: int) -> None:
         cubes_copy = copy.copy(self.cubes[number, :, :])
 
         for z in range(self.size):
@@ -113,7 +116,7 @@ class RubiksCube:
                 self.cubes[number, z, x] = cubes_copy[self.size - 1 - x, z]
                 self.cubes[number, z, x].rotate_xz()
 
-    def rotate_row(self, number: int):
+    def rotate_row(self, number: int) -> None:
         cubes_copy = copy.copy(self.cubes[:, number, :])
 
         for y in range(self.size):
@@ -121,7 +124,7 @@ class RubiksCube:
                 self.cubes[y, number, x] = cubes_copy[x, self.size - 1 - y]
                 self.cubes[y, number, x].rotate_xy()
 
-    def rotate_column(self, number: int):
+    def rotate_column(self, number: int) -> None:
         cubes_copy = copy.copy(self.cubes[:, :, number])
 
         for y in range(self.size):

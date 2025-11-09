@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rubiks-cube"
+version = "1.0.0"
+requires-python = ">=3.9"
+readme = "README.md"
+dependencies = [
+    "matplotlib==3.10.3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "mypy==1.18.2",
+    "pytest==8.4.1",
+    "ruff==0.14.4",
+]
+
+[tool.mypy]
+# Strict mode; enables the following flags:
+#   --check-untyped-defs
+#   --disallow-any-generics,
+#   --disallow-incomplete-defs
+#   --disallow-subclassing-any
+#   --disallow-untyped-calls
+#   --disallow-untyped-decorators,
+#   --disallow-untyped-defs,
+#   --no-implicit-reexport
+#   --strict-concatenate
+#   --strict-equality
+#   --warn-redundant-casts
+#   --warn-return-any
+#   --warn-unused-configs
+#   --warn-unused-ignores
+strict=true
+
+implicit_reexport=true
+warn_unused_ignores=false
+
+ignore_missing_imports = true
+
+# Don't force test functions to include types.
+[[tool.mypy.overrides]]
+module = [
+  "tests.*",
+]
+allow_untyped_globals = true
+disallow_untyped_defs = false
+check_untyped_defs = false

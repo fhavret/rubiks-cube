@@ -1,8 +1,7 @@
 import pytest
 
 from logic.cube import Cube
-from logic.enums.colors import Color
-from logic.enums.faces import Face
+from logic.enums import Color, Face
 
 
 @pytest.fixture

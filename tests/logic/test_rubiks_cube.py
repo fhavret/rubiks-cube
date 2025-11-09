@@ -1,10 +1,8 @@
 import pytest
-from unittest import mock
 
 from logic.cube import Cube
+from logic.enums import Color, Face
 from logic.rubiks_cube import RubiksCube
-from logic.enums.colors import Color
-from logic.enums.faces import Face
 
 
 @pytest.fixture
